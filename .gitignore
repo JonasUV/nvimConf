@@ -1,0 +1,5 @@
+#lazy files
+lazy-lock.json
+
+#ignore bakupfiles
+*.bak
