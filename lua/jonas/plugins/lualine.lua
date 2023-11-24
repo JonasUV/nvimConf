@@ -4,7 +4,7 @@ return {
     require('lualine').setup {
     options = {
       icons_enabled = true,
-      theme = 'evil_lualine', -- normal auto maybe good: evil_lualine
+      theme = 'auto', -- normal auto maybe good: evil_lualine
       component_separators = { left = '', right = ''},
       section_separators = { left = '', right = ''},
       disabled_filetypes = {
