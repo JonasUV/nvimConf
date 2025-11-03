@@ -5,5 +5,8 @@ return {
   init = function()
     -- VimTeX configuration goes here, e.g.
     vim.g.vimtex_view_method = "zathura"
+  keys = {
+    { "<leader>vv","<cmd>VimtexView<cr>", desc = "Open Zathura View of LaTeX Document"},
+  }
   end
 }
