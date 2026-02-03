@@ -1,26 +1,66 @@
 return {
   'VonHeikemen/lsp-zero.nvim',
-  branch="v3.x",
-  dependencies={"neovim/nvim-lspconfig","hrsh7th/cmp-nvim-lsp","hrsh7th/nvim-cmp","L3MON4D3/LuaSnip","williamboman/mason.nvim","williamboman/mason-lspconfig.nvim"},
-  config=function()
+  branch = "v3.x",
+  dependencies = {
+    "neovim/nvim-lspconfig",
+    "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/nvim-cmp",
+    "L3MON4D3/LuaSnip",
+    {
+      "williamboman/mason.nvim",
+      enabled = not vim.g.nix_managed,
+    },
+    {
+      "williamboman/mason-lspconfig.nvim",
+      enabled = not vim.g.nix_managed,
+    },
+  },
+  config = function()
     local lsp_zero = require('lsp-zero')
-
+    
     lsp_zero.on_attach(function(client, bufnr)
-      -- see :help lsp-zero-keybindings
-      -- to learn the available actions
       lsp_zero.default_keymaps({buffer = bufnr})
     end)
-
-    -- to learn how to use mason.nvim
-    -- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guide/integrate-with-mason-nvim.md
-    require('mason').setup({})
-    require('mason-lspconfig').setup({
-      ensure_installed = {"lua_ls", "rust_analyzer","clangd","taplo","zls","yamlls","pylsp","dockerls","cssls","cmake","bashls","rnix", "gopls", "texlab", "jsonls", "html","marksman","asm_lsp"},
-      handlers = {
-        function(server_name)
-          require('lspconfig')[server_name].setup({})
-        end,
-      },
-    })
+    
+    local lspconfig = require('lspconfig')
+    
+    -- Liste aller LSP Server
+    local servers = {
+      "lua_ls",
+      "rust_analyzer",
+      "clangd",
+      "pylsp",
+      "dockerls",
+      "cmake",
+      "bashls",
+      "nil_ls",
+      "gopls",
+      "texlab",
+      "jsonls",
+      "html",
+      "marksman",
+    }
+    
+    -- Wenn auf Nix: LSPs direkt konfigurieren
+    if vim.g.nix_managed then
+      for _, server_name in ipairs(servers) do
+        -- Einfach alle LSPs setup ohne executable check
+        -- Die LSPs sind auf Nix garantiert verfügbar
+        pcall(function()
+          lspconfig[server_name].setup({})
+        end)
+      end
+    else
+      -- Wenn nicht auf Nix: Mason verwenden
+      require('mason').setup({})
+      require('mason-lspconfig').setup({
+        ensure_installed = servers,
+        handlers = {
+          function(server_name)
+            lspconfig[server_name].setup({})
+          end,
+        },
+      })
+    end
   end,
 }
