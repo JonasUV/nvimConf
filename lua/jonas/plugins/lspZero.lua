@@ -24,7 +24,7 @@ return {
     
     local lspconfig = require('lspconfig')
     
-    -- Liste aller LSP Server
+
     local servers = {
       "lua_ls",
       "rust_analyzer",
@@ -33,14 +33,16 @@ return {
       "dockerls",
       "cmake",
       "bashls",
-      "nil_ls",
       "gopls",
       "texlab",
       "jsonls",
       "html",
       "marksman",
     }
-    
+
+    if vim.g.nix_managed then
+      table.insert(servers, "nil_ls")
+    end
     -- Wenn auf Nix: LSPs direkt konfigurieren
     if vim.g.nix_managed then
       for _, server_name in ipairs(servers) do
