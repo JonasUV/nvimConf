@@ -17,13 +17,10 @@ return {
   },
   config = function()
     local lsp_zero = require('lsp-zero')
-    
+
     lsp_zero.on_attach(function(client, bufnr)
       lsp_zero.default_keymaps({buffer = bufnr})
     end)
-    
-    local lspconfig = require('lspconfig')
-    
 
     local servers = {
       "lua_ls",
@@ -46,10 +43,9 @@ return {
     -- Wenn auf Nix: LSPs direkt konfigurieren
     if vim.g.nix_managed then
       for _, server_name in ipairs(servers) do
-        -- Einfach alle LSPs setup ohne executable check
-        -- Die LSPs sind auf Nix garantiert verfügbar
         pcall(function()
-          lspconfig[server_name].setup({})
+          vim.lsp.config(server_name, {})
+          vim.lsp.enable(server_name)
         end)
       end
     else
@@ -59,7 +55,8 @@ return {
         ensure_installed = servers,
         handlers = {
           function(server_name)
-            lspconfig[server_name].setup({})
+            vim.lsp.config(server_name, {})
+            vim.lsp.enable(server_name)
           end,
         },
       })
