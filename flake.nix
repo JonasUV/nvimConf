@@ -117,6 +117,26 @@
             in
               "--prefix PATH : ${pkgs.lib.makeBinPath minimalTools}";
           };
+          nix-only = pkgs.wrapNeovim pkgs.neovim-unwrapped {
+            viAlias = true;
+            vimAlias = true;
+            withNodeJs = true;
+            withPython3 = true;
+            
+            configure = {
+              customRC = ''
+                let g:nix_managed = 1
+                set runtimepath^=${./.}
+                set runtimepath+=${./.}/after
+                
+                lua vim.g.nix_managed = true
+                lua dofile('${./.}/init.lua')
+              '';
+            };
+            
+            extraMakeWrapperArgs = 
+              "--prefix PATH : ${pkgs.lib.makeBinPath (cliTools ++ [pkgs.nil])}";
+          };
         };
 
         apps.default = {
