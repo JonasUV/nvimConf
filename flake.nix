@@ -37,7 +37,7 @@
           rustfmt
           clang-tools
           cmake-language-server
-          python311Packages.python-lsp-server
+          python312Packages.python-lsp-server
           black
           ruff
           dockerfile-language-server
@@ -107,7 +107,7 @@
                 lua-language-server stylua
                 rust-analyzer rustfmt
                 clang-tools cmake-language-server
-                python311Packages.python-lsp-server black ruff
+                python312Packages.python-lsp-server black ruff
                 nodePackages.bash-language-server shfmt shellcheck
                 nil nixpkgs-fmt
                 gopls gofumpt
