@@ -26,7 +26,6 @@
           gcc
           gnumake
           tree-sitter
-          nodejs
         ];
 
         # Alle LSP Server
@@ -41,7 +40,6 @@
           black
           ruff
           dockerfile-language-server
-          nodePackages.bash-language-server
           shfmt
           shellcheck
           nil
@@ -50,7 +48,6 @@
           gopls
           gofumpt
           texlab
-          nodePackages.vscode-langservers-extracted
           marksman
         ];
 
@@ -59,7 +56,6 @@
         myNeovim = pkgs.wrapNeovim pkgs.neovim-unwrapped {
           viAlias = true;
           vimAlias = true;
-          withNodeJs = true;
           withPython3 = true;
           
           configure = {
@@ -88,7 +84,6 @@
           minimal = pkgs.wrapNeovim pkgs.neovim-unwrapped {
             viAlias = true;
             vimAlias = true;
-            withNodeJs = true;
             withPython3 = true;
             
             configure = {
@@ -108,10 +103,8 @@
                 rust-analyzer rustfmt
                 clang-tools cmake-language-server
                 python312Packages.python-lsp-server black ruff
-                nodePackages.bash-language-server shfmt shellcheck
                 nil nixpkgs-fmt
                 gopls gofumpt
-                nodePackages.vscode-langservers-extracted
                 marksman
               ]);
             in
@@ -120,7 +113,6 @@
           nix-only = pkgs.wrapNeovim pkgs.neovim-unwrapped {
             viAlias = true;
             vimAlias = true;
-            withNodeJs = true;
             withPython3 = true;
             
             configure = {
