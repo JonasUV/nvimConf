@@ -107,8 +107,9 @@
       "src": "https://github.com/christoomey/vim-tmux-navigator"
     },
     "vimtex": {
-      "rev": "79a5fb444147f94a5284b6800030e17eecd18a06",
-      "src": "https://github.com/lervag/vimtex"
+      "rev": "cb1374f1f3f9717ea91787c54dc11031d673aea5",
+      "src": "https://github.com/lervag/vimtex",
+      "version": "'v2.18'"
     },
     "yuck.vim": {
       "rev": "9b5e0370f70cc30383e1dabd6c215475915fe5c3",

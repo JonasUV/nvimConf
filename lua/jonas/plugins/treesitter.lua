@@ -30,6 +30,10 @@ end
 
 vim.api.nvim_create_autocmd("FileType", {
   callback = function(ev)
+    -- tex: Highlighting macht VimTeX selbst
+    if ev.match == "tex" then
+      return
+    end
     -- schlägt still fehl, wenn für den Filetype kein Parser installiert ist
     if pcall(vim.treesitter.start, ev.buf) then
       vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"

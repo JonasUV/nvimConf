@@ -16,15 +16,20 @@ local servers = {
   "marksman",
 }
 
-if vim.g.nix_managed then
-  table.insert(servers, "nil_ls")
-else
-  -- Ohne Nix: Mason installiert die Server-Binaries
+if vim.g.use_mason then
+  -- Mason installiert die Server-Binaries
   require("mason").setup({})
   require("mason-lspconfig").setup({
     ensure_installed = servers,
-    automatic_enable = false, -- enable passiert unten für beide Fälle
+    automatic_enable = false, -- enable passiert unten für alle Fälle
   })
+else
+  -- Server vom System (Nix/apk): zusätzliche Server, nur aktivieren was installiert ist
+  vim.list_extend(servers, { "nil_ls", "neocmake" })
+  servers = vim.tbl_filter(function(name)
+    local cmd = (vim.lsp.config[name] or {}).cmd
+    return type(cmd) ~= "table" or vim.fn.executable(cmd[1]) == 1
+  end, servers)
 end
 
 vim.lsp.config("*", {

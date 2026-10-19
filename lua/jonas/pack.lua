@@ -54,15 +54,17 @@ local plugins = {
   gh("onsails/lspkind.nvim"),
 
   -- languages & misc
-  gh("lervag/vimtex"),
+  -- v2.18: neuere Versionen brauchen Neovim >= 0.12.4 (Alpine hat 0.12.2)
+  { src = gh("lervag/vimtex"), version = "v2.18" },
   gh("normen/vim-pio"),
   gh("elkowar/yuck.vim"),
   gh("lambdalisue/vim-suda"),
   gh("brianhuster/live-preview.nvim"),
 }
 
--- Ohne Nix: LSP-Server über Mason installieren
-if not vim.g.nix_managed then
+-- LSP-Server kommen von Nix oder dem System (NVIM_SYSTEM_LSP=1, z.B. Docker), sonst von Mason
+vim.g.use_mason = not vim.g.nix_managed and vim.env.NVIM_SYSTEM_LSP == nil
+if vim.g.use_mason then
   vim.list_extend(plugins, {
     gh("mason-org/mason.nvim"),
     gh("mason-org/mason-lspconfig.nvim"),
