@@ -54,20 +54,31 @@
 
         allTools = cliTools ++ lspServers;
 
+        # Version der Config aus dem Git-Stand der Flake (":ConfigVersion", Startmenü)
+        # dirtyShortRev = uncommittete Änderungen, lastModifiedDate = YYYYMMDDHHMMSS
+        configRev = self.shortRev or self.dirtyShortRev or "unknown";
+        configDate = let d = self.lastModifiedDate or "00000000"; in
+          "${builtins.substring 0 4 d}-${builtins.substring 4 2 d}-${builtins.substring 6 2 d}";
+        configVersion = "${configRev} ${configDate}";
+
+        # Gemeinsame init für alle Varianten
+        rc = ''
+          let g:nix_managed = 1
+          set runtimepath^=${./.}
+          set runtimepath+=${./.}/after
+
+          lua vim.g.nix_managed = true
+          lua vim.g.config_version = "${configVersion}"
+          lua dofile('${./.}/init.lua')
+        '';
+
         myNeovim = pkgs.wrapNeovim pkgs.neovim-unwrapped {
           viAlias = true;
           vimAlias = true;
           withPython3 = true;
           
           configure = {
-            customRC = ''
-              let g:nix_managed = 1
-              set runtimepath^=${./.}
-              set runtimepath+=${./.}/after
-              
-              lua vim.g.nix_managed = true
-              lua dofile('${./.}/init.lua')
-            '';
+            customRC = rc;
             
             # ENTFERNT: Kein Treesitter hier mehr
             # packages.myPlugins = ...
@@ -88,14 +99,7 @@
             withPython3 = true;
             
             configure = {
-              customRC = ''
-                let g:nix_managed = 1
-                set runtimepath^=${./.}
-                set runtimepath+=${./.}/after
-                
-                lua vim.g.nix_managed = true
-                lua dofile('${./.}/init.lua')
-              '';
+              customRC = rc;
             };
             
             extraMakeWrapperArgs = let
@@ -117,14 +121,7 @@
             withPython3 = true;
             
             configure = {
-              customRC = ''
-                let g:nix_managed = 1
-                set runtimepath^=${./.}
-                set runtimepath+=${./.}/after
-                
-                lua vim.g.nix_managed = true
-                lua dofile('${./.}/init.lua')
-              '';
+              customRC = rc;
             };
             
             extraMakeWrapperArgs = 

@@ -7,8 +7,11 @@ dashboard.section.buttons.val = {
   dashboard.button("SPC f r", "󰊄  Recently opened files"),
   dashboard.button("SPC f g", "󰈬  Find word"),
   dashboard.button("SPC s r", "  Search & replace"),
+  dashboard.button("SPC s l", "  Open last session"),
   dashboard.button("SPC l g", "  Lazygit"),
   dashboard.button("q", "󰅚  Quit", "<cmd>qa<CR>"),
 }
+
+dashboard.section.footer.val = "config " .. require("jonas.core.version").get() .. " · nvim " .. tostring(vim.version())
 
 require("alpha").setup(dashboard.config)
