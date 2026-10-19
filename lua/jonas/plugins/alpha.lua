@@ -1,1 +1,14 @@
-require("alpha").setup(require("alpha.themes.dashboard").config)
+local dashboard = require("alpha.themes.dashboard")
+
+-- Buttons passend zu den eigenen Keymaps (der Theme-Default zeigt fremde Belegungen)
+dashboard.section.buttons.val = {
+  dashboard.button("e", "  New file", "<cmd>ene<CR>"),
+  dashboard.button("SPC f f", "󰈞  Find file"),
+  dashboard.button("SPC f r", "󰊄  Recently opened files"),
+  dashboard.button("SPC f g", "󰈬  Find word"),
+  dashboard.button("SPC s r", "  Search & replace"),
+  dashboard.button("SPC l g", "  Lazygit"),
+  dashboard.button("q", "󰅚  Quit", "<cmd>qa<CR>"),
+}
+
+require("alpha").setup(dashboard.config)
