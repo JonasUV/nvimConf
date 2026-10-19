@@ -1,2 +1,3 @@
 require("jonas.core")
-require("jonas.lazy")
+require("jonas.pack")
+require("jonas.plugins")

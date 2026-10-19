@@ -1,6 +1,15 @@
--- for plugins that dont need any extra configuration
-return {
-	"christoomey/vim-tmux-navigator", -- tmux & split window navigator
-  "elkowar/yuck.vim",
-  "lambdalisue/vim-suda"
-}
+-- Plugin-Konfigurationen (Plugins selbst werden in jonas/pack.lua geladen)
+-- tmux-navigator, yuck, suda, vim-pio und live-preview brauchen keine Config
+require("jonas.plugins.colorscheme") -- zuerst, damit andere Plugins die Farben sehen
+require("jonas.plugins.alpha")
+require("jonas.plugins.lualine")
+require("jonas.plugins.nvim-tree")
+require("jonas.plugins.telescope")
+require("jonas.plugins.harpoon")
+require("jonas.plugins.gitsigns")
+require("jonas.plugins.git-line-blame")
+require("jonas.plugins.lazygit")
+require("jonas.plugins.treesitter")
+require("jonas.plugins.nvim-cmp")
+require("jonas.plugins.lsp")
+require("jonas.plugins.vimtex")

@@ -43,7 +43,8 @@
           shfmt
           shellcheck
           nil
-          nixd
+          bash-language-server
+          vscode-langservers-extracted
           nixpkgs-fmt
           gopls
           gofumpt
@@ -150,7 +151,7 @@
             echo "  ✓ nil (Nix), gopls, texlab"
             echo "  ✓ jsonls, html, marksman"
             echo ""
-            echo "🌳 Treesitter: Wird von lazy.nvim verwaltet"
+            echo "🌳 Plugins & Treesitter: vim.pack"
             echo "🔧 Tools: ripgrep, fzf, lazygit"
             echo ""
             echo "Starte: nvim"
