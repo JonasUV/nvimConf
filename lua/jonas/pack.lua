@@ -33,6 +33,7 @@ local plugins = {
   gh("nvim-telescope/telescope.nvim"),
   { src = gh("ThePrimeagen/harpoon"), version = "harpoon2" },
   gh("christoomey/vim-tmux-navigator"),
+  gh("MagicDuck/grug-far.nvim"),
 
   -- git
   gh("lewis6991/gitsigns.nvim"),
